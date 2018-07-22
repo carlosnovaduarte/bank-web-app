@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import lomLogo from './images/lom.png'
+import Operations from'./components/Operations.js';
 import './App.css';
-import Button from './components/Button.js'
 
 class App extends Component {
   render() {
@@ -10,12 +9,12 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={lomLogo} className="App-logo" alt="lomLogo" />
-          <h1 className="App-title">Welcome to Life on Mars!</h1>
+          <h1 className="App-title">Welcome to the Pegasus Project Platform</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          What would you like to do?
         </p>
-        <Button/>
+        <Operations/>
       </div>
     );
   }
