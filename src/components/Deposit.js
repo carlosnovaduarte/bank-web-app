@@ -5,8 +5,9 @@ import cassiopeia from '../ABIs/cassiopeia.json';
 class Deposit extends Component {
 
   componentDidMount() {
-    const contract = new web3.eth.Contract(cassiopeia.abi);
-
+    //const contract = new this.props.web3.eth.Contract(cassiopeia.abi, "0xf6330c053c26b65bc7fc4fc05767477de955c284"); 
+    let MyContract = this.props.web3.eth.contract(cassiopeia.abi);
+    let contractInstance = MyContract.at('0xf6330c053c26b65bc7fc4fc05767477de955c284');
   }
 
   state = { deposit: "" }
@@ -28,7 +29,7 @@ class Deposit extends Component {
       </Col>
       <Col md={1}>
         <Button onClick={this.confirmDeposit}>
-          Pay
+         Deposit 
         </Button>
       </Col>
       </Fragment>
@@ -37,3 +38,4 @@ class Deposit extends Component {
 }
 
 export default Deposit;
+

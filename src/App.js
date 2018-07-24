@@ -8,6 +8,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Drawer from 'react-motion-drawer';
 import './App.css';
+import withWeb3 from './HOCs/withWeb3.js';
 
 class App extends Component {
   state = { page: "" }
@@ -34,17 +35,19 @@ class App extends Component {
   }
   render() {
     console.log(this.props);
+    console.log(this.props.web3);
     return (
       <Grid className="App">
         <header className="App-header">
           <img src={lomLogo} className="App-logo" alt="lomLogo" />
-          <h1 className="App-title">Welcome to the Bank</h1>
+          <h1 className="App-title">Life on Mars</h1>
         </header>
 
         <Row className="App-intro">
-          What would you like to do?
+          <Col>
+            Pick an operation:
+          </Col>
         </Row>
-
         <Row>
           <Menu setPage={this.setPage} />
         </Row>
@@ -63,5 +66,5 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withWeb3()(App);
 
