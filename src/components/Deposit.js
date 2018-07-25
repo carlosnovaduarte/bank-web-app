@@ -3,21 +3,27 @@ import {FormControl, Button, Col} from 'react-bootstrap';
 import cassiopeia from '../ABIs/cassiopeia.json';
 
 class Deposit extends Component {
+  state = {contract: "", deposit: "", defaultAccount: ""}
 
   componentDidMount() {
-    //const contract = new this.props.web3.eth.Contract(cassiopeia.abi, "0xf6330c053c26b65bc7fc4fc05767477de955c284"); 
-    let MyContract = this.props.web3.eth.contract(cassiopeia.abi);
-    let contractInstance = MyContract.at('0xf6330c053c26b65bc7fc4fc05767477de955c284');
+    const MyContract = this.props.web3.eth.contract(cassiopeia.abi);
+    const contractInstance = MyContract.at('0xf6330c053c26b65bc7fc4fc05767477de955c284');
+    this.setState({ contract: contractInstance, defaultAccount: this.props.web3.eth.accounts[0] });
   }
 
-  state = { deposit: "" }
-
   confirmDeposit = () => {
-    alert(`Are you sure you want to deposit ${this.state.deposit}?`);
+    this.state.contract.deposit({ 
+      from: this.props.web3.eth.defaultAccount,
+      value: this.state.deposit, 
+      gasPrice: this.props.web3.toWei(20, 'gwei')
+    }, (error, result) => {
+       console.log(error, result);
+      }
+    );
   }
 
   changeDeposit = (event) => {
-    this.setState({ deposit: event.target.value })
+    this.setState({ deposit: event.target.value });
   } 
 
   render() {

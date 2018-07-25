@@ -1,16 +1,36 @@
 import React, { Component, Fragment } from 'react';
 import {FormControl, Button, Col} from 'react-bootstrap';
+import cassiopeia from '../ABIs/cassiopeia.json';
+
+
 
 class Transfer extends Component {
-  state = { transfer: "" }
+  state = { contract: "", transfer: "", defaultAccount: "" }
+
+  
+  componentDidMount() {
+    const MyContract = this.props.web3.eth.contract(cassiopeia.abi);
+    const contractInstance = MyContract.at('0xf6330c053c26b65bc7fc4fc05767477de955c284');
+    this.setState({ contract: contractInstance, defaultAccount: this.props.web3.eth.accounts[0] });
+  }
+
 
   confirmTransfer = () => {
-    alert(`Are you sure you want to transfer ${this.state.transfer}?`);
+    this.state.contract.transfer({
+      from: this.props.web3.eth.defaultAccount,
+      value: this.state.transfer,
+      gasPrice: this.props.web3.toWei(20, 'gwei')
+
+    }, (error, result) => {
+      console.log(error, result);
+      }
+    );
   }
 
   changeTransfer = (event) => {
-    this.setState({ transfer: event.target.value })
-  } 
+    this.setState({ transfer: event.target.value });
+  }
+
 
   render() {
     return(
@@ -21,7 +41,7 @@ class Transfer extends Component {
       </Col>
       <Col md={1}>
         <Button onClick={this.confirmTransfer}>
-          Pay
+         Transfer 
         </Button>
       </Col>
       </Fragment>
@@ -30,3 +50,4 @@ class Transfer extends Component {
 }
 
 export default Transfer;
+

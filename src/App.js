@@ -44,9 +44,6 @@ class App extends Component {
         </header>
 
         <Row className="App-intro">
-          <Col>
-            Pick an operation:
-          </Col>
         </Row>
         <Row>
           <Menu setPage={this.setPage} />
