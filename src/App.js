@@ -9,19 +9,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Drawer from 'react-motion-drawer';
 import './App.css';
 import withWeb3 from './HOCs/withWeb3.js';
+import cassiopeia from './ABIs/cassiopeia.json';
+
 
 class App extends Component {
+
+
   state = { page: "" }
+
+  componentDidMount() {
+    const MyContract = this.props.web3.eth.contract(cassiopeia.abi);
+    const contractInstance = MyContract.at('0xf6330c053c26b65bc7fc4fc05767477de955c284');
+    this.contract = contractInstance
+  }
+
   renderContent() {
     const {web3} = this.props;
     if (this.state.page === "deposit") {
-      return <Deposit web3={web3} />;
+      return <Deposit web3={web3} contract={this.contract} />;
     }
     else if (this.state.page === "withdraw") {
-      return <Withdraw web3={web3} />;
+      return <Withdraw web3={web3} contract={this.contract} />;
     }
     else if (this.state.page === "transfer") {
-      return <Transfer web3={web3} />;
+      return <Transfer web3={web3} contract={this.contract} />;
     }
   }
 
