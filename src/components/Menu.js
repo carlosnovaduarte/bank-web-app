@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Deposit from './Deposit.js';
 import { Grid, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Transfer from './Transfer.js';
 
 class Menu extends Component {
   depositHandler() { 
@@ -13,7 +14,8 @@ class Menu extends Component {
   }
 
   transferHandler() {
-    alert("You transfered money.");
+    //this.props.setPage("transfer");
+    //return <Transfer/>;
   }
 
   render() {
